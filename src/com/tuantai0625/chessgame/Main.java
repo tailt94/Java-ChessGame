@@ -1,4 +1,4 @@
-package sample;
+package com.tuantai0625.chessgame;
 
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
