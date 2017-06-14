@@ -1,5 +1,6 @@
 package com.tuantai0625.chessgame.model;
 
+import com.tuantai0625.chessgame.factory.PieceFactory;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
 
@@ -24,52 +25,43 @@ public class ChessBoard {
     }
 
     private void setInitPieces(int row, int col) {
-        if (row == 0) {
-            switch (col) {
-                case 0:
-                case 7:
-                    tiles[row][col].setPiece(new Rook(Piece.BLACK));
-                    break;
-                case 1:
-                case 6:
-                    tiles[row][col].setPiece(new Knight(Piece.BLACK));
-                    break;
-                case 2:
-                case 5:
-                    tiles[row][col].setPiece(new Bishop(Piece.BLACK));
-                    break;
-                case 3:
-                    tiles[row][col].setPiece(new Queen(Piece.BLACK));
-                    break;
-                case 4:
-                    tiles[row][col].setPiece(new King(Piece.BLACK));
-                    break;
-            }
-        } else if (row == 1) {
-            tiles[row][col].setPiece(new Pawn(Piece.BLACK));
+        String pieceName = "";
+        String pieceColor = "";
+
+        if (row == 1) {
+            pieceName = "pawn";
+            pieceColor = Piece.BLACK;
+            tiles[row][col].setPiece(PieceFactory.getPiece(pieceName, pieceColor));
         } else if (row == 6) {
-            tiles[row][col].setPiece(new Pawn(Piece.WHITE));
-        } else if (row == 7) {
+            pieceName = "pawn";
+            pieceColor = Piece.WHITE;
+            tiles[row][col].setPiece(PieceFactory.getPiece(pieceName, pieceColor));
+        } else if (row == 0 || row == 7) {
+            if (row == 0)   pieceColor = Piece.BLACK;
+            if (row == 7)   pieceColor = Piece.WHITE;
+
             switch (col) {
                 case 0:
                 case 7:
-                    tiles[row][col].setPiece(new Rook(Piece.WHITE));
+                    pieceName = "rook";
                     break;
                 case 1:
                 case 6:
-                    tiles[row][col].setPiece(new Knight(Piece.WHITE));
+                    pieceName = "knight";
                     break;
                 case 2:
                 case 5:
-                    tiles[row][col].setPiece(new Bishop(Piece.WHITE));
+                    pieceName = "bishop";
                     break;
                 case 3:
-                    tiles[row][col].setPiece(new Queen(Piece.WHITE));
+                    pieceName = "queen";
                     break;
                 case 4:
-                    tiles[row][col].setPiece(new King(Piece.WHITE));
+                    pieceName = "king";
                     break;
             }
+
+            tiles[row][col].setPiece(PieceFactory.getPiece(pieceName, pieceColor));
         }
     }
 }
