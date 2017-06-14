@@ -20,6 +20,8 @@ public abstract class Piece implements Serializable {
         this.color = color;
         String filePath = "com/tuantai0625/chessgame/assets/pieces/" + this.getColor() + "_" + this.getName() + ".png";
         this.image = new ImageView(filePath);
+        this.image.setFitWidth(62.5);
+        this.image.setFitHeight(62.5);
 
         this.image.setOnDragDetected(new EventHandler<MouseEvent>() {
             @Override

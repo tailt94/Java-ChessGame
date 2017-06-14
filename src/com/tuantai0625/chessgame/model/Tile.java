@@ -64,7 +64,7 @@ public class Tile {
         this.pane.setOnDragExited(new EventHandler<DragEvent>() {
             @Override
             public void handle(DragEvent event) {
-                if (color == DARK) {
+                if (color.equals(DARK)) {
                     pane.setStyle("-fx-background-color: #33939A");
                 } else {
                     pane.setStyle("-fx-background-color: #98DCE1");

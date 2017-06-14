@@ -1,0 +1,3 @@
+Manifest-Version: 1.0
+Main-Class: com.tuantai0625.chessgame.Main
+
