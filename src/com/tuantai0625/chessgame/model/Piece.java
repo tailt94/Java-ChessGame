@@ -28,7 +28,7 @@ public abstract class Piece {
             @Override
             public void handle(MouseEvent event) {
                 Dragboard db = image.startDragAndDrop(TransferMode.MOVE);
-
+                db.setDragView(image.getImage());
                 ClipboardContent content = new ClipboardContent();
                 content.putString(getColor() + "_" + getName());
                 db.setContent(content);
