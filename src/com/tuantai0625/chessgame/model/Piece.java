@@ -9,12 +9,13 @@ import java.io.Serializable;
 /**
  * Created by Lionheart on 12-Jun-17.
  */
-public abstract class Piece implements Serializable {
+public abstract class Piece {
     public static final String BLACK = "black";
     public static final String WHITE = "white";
 
     protected ImageView image;
     protected String color;
+    protected OnDragCompleteListener mListener;
 
     public Piece(String color) {
         this.color = color;
@@ -30,9 +31,18 @@ public abstract class Piece implements Serializable {
 
                 ClipboardContent content = new ClipboardContent();
                 content.putString(getColor() + "_" + getName());
-//                content.put(new DataFormat("com.tuantai0625.chessgame.model.Piece"), Piece.this);
                 db.setContent(content);
 
+                event.consume();
+            }
+        });
+
+        this.image.setOnDragDone(new EventHandler<DragEvent>() {
+            @Override
+            public void handle(DragEvent event) {
+                if (event.getTransferMode() == TransferMode.MOVE) {
+                    mListener.onDragComplete();
+                }
                 event.consume();
             }
         });
@@ -46,5 +56,14 @@ public abstract class Piece implements Serializable {
         return this.color;
     }
 
+    public void setOnDragCompleteListener(OnDragCompleteListener listener) {
+        this.mListener = listener;
+    }
+
     public abstract String getName();
+
+    public interface OnDragCompleteListener {
+        void onDragComplete();
+
+    }
 }

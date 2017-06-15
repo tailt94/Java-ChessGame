@@ -1,5 +1,6 @@
 package com.tuantai0625.chessgame.model;
 
+import com.tuantai0625.chessgame.factory.PieceFactory;
 import javafx.event.EventHandler;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.DataFormat;
@@ -9,7 +10,7 @@ import javafx.scene.input.TransferMode;
 import javafx.scene.layout.Pane;
 
 
-public class Tile {
+public class Tile implements Piece.OnDragCompleteListener {
     public static final String DARK = "dark";
     public static final String LIGHT = "light";
 
@@ -31,6 +32,11 @@ public class Tile {
         }
 
         createDragDropEvent();
+    }
+
+    @Override
+    public void onDragComplete() {
+        removePiece();
     }
 
     /**
@@ -78,16 +84,17 @@ public class Tile {
             @Override
             public void handle(DragEvent event) {
                 Dragboard db = event.getDragboard();
-//                Piece droppedPiece = (Piece) db.getContent(new DataFormat("com.tuantai0625.chessgame.model.Piece"));
                 boolean success = false;
 
                 if(db.hasString()) {
-                    ImageView source = (ImageView) event.getGestureSource();
+                    //Đã có quân cờ tồn tại
                     if (hasPiece()) {
                         removePiece();
                     }
-                    pane.getChildren().add(source);
-//                    setPiece(droppedPiece);
+
+                    String[] pieceInfo = db.getString().split("_");
+                    Piece newPiece = PieceFactory.getPiece(pieceInfo[1], pieceInfo[0]);
+                    setPiece(newPiece);
                     success = true;
                 }
 
@@ -108,10 +115,11 @@ public class Tile {
     public void setPiece(Piece piece) {
         this.piece = piece;
         this.pane.getChildren().add(piece.getImage());
+        this.piece.setOnDragCompleteListener(this);
     }
 
     public void removePiece() {
-        this.pane.getChildren().removeAll();
+        this.pane.getChildren().remove(this.piece.getImage());
         this.piece = null;
     }
 
