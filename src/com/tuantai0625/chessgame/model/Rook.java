@@ -28,7 +28,7 @@ public class Rook extends Piece {
         }
 
         /*
-         * Kiểm tra vị trí mới có nằm thẳng hàng
+         * Kiểm tra tính hợp lệ khi ô được di chuyển tới nằm cùng hàng ngang
          */
         if (newRow == oldRow) {
             if (newCol > oldCol) {
@@ -53,6 +53,9 @@ public class Rook extends Piece {
             return true;
         }
 
+        /*
+         * Kiểm tra tính hợp lệ khi ô được di chuyển tới nằm cùng hàng dọc
+         */
         if (newCol == oldCol) {
             if (newRow > oldRow) {
                 for (int i = oldRow + 1; i < newRow; i++) {
