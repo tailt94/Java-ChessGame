@@ -14,7 +14,7 @@ public class ChessBoard {
         tiles = new Tile[8][8];
         for (int row = 0; row < 8; row++) {
             for (int col = 0; col < 8; col++) {
-                tiles[row][col] = new Tile(row, col);
+                tiles[row][col] = new Tile(this, row, col);
                 setInitPieces(row, col);
             }
         }
@@ -22,6 +22,10 @@ public class ChessBoard {
 
     public Tile[][] getTiles() {
         return this.tiles;
+    }
+
+    public Tile getTile(int row, int col) {
+        return this.tiles[row][col];
     }
 
     private void setInitPieces(int row, int col) {
@@ -63,5 +67,13 @@ public class ChessBoard {
 
             tiles[row][col].setPiece(PieceFactory.getPiece(pieceName, pieceColor));
         }
+    }
+
+    public boolean hasPiece(int row, int col) {
+        return tiles[row][col].hasPiece();
+    }
+
+    public Piece getPiece(int row, int col) {
+        return tiles[row][col].getPiece();
     }
 }

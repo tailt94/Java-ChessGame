@@ -40,10 +40,9 @@ public class MainController implements Initializable{
     }
 
     private void drawChessPane() {
-        Tile[][] tiles = chessBoard.getTiles();
         for (int row = 0; row < 8; row++) {
             for (int col = 0; col < 8; col++) {
-                chessPane.add(tiles[row][col].getPane(), col, row);
+                chessPane.add(chessBoard.getTile(row, col).getPane(), col, row);
             }
         }
     }

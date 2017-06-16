@@ -12,4 +12,9 @@ public class Bishop extends Piece{
     public String getName() {
         return "bishop";
     }
+
+    @Override
+    public boolean isLegalMove(ChessBoard b, int newRow, int newCol) {
+        return true;
+    }
 }

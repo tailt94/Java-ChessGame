@@ -14,12 +14,14 @@ public class Tile implements Piece.OnDragCompleteListener {
     public static final String DARK = "dark";
     public static final String LIGHT = "light";
 
+    private ChessBoard board;
     private Pane pane;
     private String color;
     private Piece piece;
     private int row, col;
 
-    public Tile(int row, int col) {
+    public Tile(ChessBoard board, int row, int col) {
+        this.board = board;
         this.row = row;
         this.col = col;
         this.pane = new Pane();
@@ -86,16 +88,20 @@ public class Tile implements Piece.OnDragCompleteListener {
                 Dragboard db = event.getDragboard();
                 boolean success = false;
 
+                //TODO: Kiểm tra ô này có hợp lệ hay không
                 if(db.hasString()) {
-                    //Đã có quân cờ tồn tại
-                    if (hasPiece()) {
-                        removePiece();
-                    }
-
                     String[] pieceInfo = db.getString().split("_");
+                    int oldRow = Integer.parseInt(pieceInfo[2]);
+                    int oldCol = Integer.parseInt(pieceInfo[3]);
                     Piece newPiece = PieceFactory.getPiece(pieceInfo[1], pieceInfo[0]);
-                    setPiece(newPiece);
-                    success = true;
+                    newPiece.setTileOn(board.getTile(oldRow, oldCol));
+                    if (newPiece.isLegalMove(board, row, col)) {
+                        if (hasPiece()) {
+                            removePiece();
+                        }
+                        setPiece(newPiece);
+                        success = true;
+                    }
                 }
 
                 event.setDropCompleted(success);
@@ -114,6 +120,7 @@ public class Tile implements Piece.OnDragCompleteListener {
 
     public void setPiece(Piece piece) {
         this.piece = piece;
+        this.piece.setTileOn(this);
         this.pane.getChildren().add(piece.getImage());
         this.piece.setOnDragCompleteListener(this);
     }
@@ -125,5 +132,13 @@ public class Tile implements Piece.OnDragCompleteListener {
 
     public Pane getPane() {
         return this.pane;
+    }
+
+    public int getRow() {
+        return row;
+    }
+
+    public int getCol() {
+        return col;
     }
 }

@@ -15,6 +15,7 @@ public abstract class Piece {
 
     protected ImageView image;
     protected String color;
+    protected Tile tileOn;
     protected OnDragCompleteListener mListener;
 
     public Piece(String color) {
@@ -30,7 +31,10 @@ public abstract class Piece {
                 Dragboard db = image.startDragAndDrop(TransferMode.MOVE);
                 db.setDragView(image.getImage());
                 ClipboardContent content = new ClipboardContent();
-                content.putString(getColor() + "_" + getName());
+                content.putString(getColor() + "_"
+                        + getName() + "_"
+                        + Integer.toString(tileOn.getRow()) + "_"
+                        + Integer.toString(tileOn.getCol()));
                 db.setContent(content);
 
                 event.consume();
@@ -60,10 +64,18 @@ public abstract class Piece {
         this.mListener = listener;
     }
 
+    public Tile getTileOn() {
+        return tileOn;
+    }
+
+    public void setTileOn(Tile tileOn) {
+        this.tileOn = tileOn;
+    }
+
     public abstract String getName();
+    public abstract boolean isLegalMove(ChessBoard b, int newRow, int newCol);
 
     public interface OnDragCompleteListener {
         void onDragComplete();
-
     }
 }
