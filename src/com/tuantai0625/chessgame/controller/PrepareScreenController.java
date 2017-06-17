@@ -45,16 +45,20 @@ public class PrepareScreenController implements Initializable {
 
     @FXML
     void onButtonStartClick(ActionEvent event) throws IOException {
-        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-        Parent root = FXMLLoader.load(Main.class.getResource("view/main_screen.fxml"));
-        Scene scene = stage.getScene();
-        if (scene == null) {
-            scene = new Scene(root);
-            stage.setScene(scene);
-        } else {
+        if (isValidToStart()) {
+            MainController mainController = new MainController(textUserName.getText());
+
+            FXMLLoader loader = new FXMLLoader(Main.class.getResource("view/main_screen.fxml"));
+            Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+            loader.setController(mainController);
+            Parent root = loader.load();
             stage.getScene().setRoot(root);
+            stage.show();
+            stage.sizeToScene();
         }
-        stage.show();
-        stage.sizeToScene();
+    }
+
+    private boolean isValidToStart() {
+        return !textUserName.getText().equals("");
     }
 }
