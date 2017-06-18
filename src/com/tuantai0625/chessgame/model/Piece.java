@@ -1,6 +1,7 @@
 package com.tuantai0625.chessgame.model;
 
 import javafx.event.EventHandler;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.*;
 
@@ -29,7 +30,8 @@ public abstract class Piece {
             @Override
             public void handle(MouseEvent event) {
                 Dragboard db = image.startDragAndDrop(TransferMode.MOVE);
-                db.setDragView(image.getImage());
+                Image dragShadow = image.getImage();
+                db.setDragView(dragShadow, dragShadow.getWidth()/2, dragShadow.getHeight()/2 );
                 ClipboardContent content = new ClipboardContent();
                 content.putString(getColor() + "_"
                         + getName() + "_"
