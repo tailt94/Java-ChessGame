@@ -25,19 +25,22 @@ import java.util.ResourceBundle;
 public class PrepareScreenController implements Initializable {
 
     @FXML
-    private StackPane prepareScreenRootPane;
+    private TextField textUserName;
+
+    @FXML
+    private RadioButton radioPvp;
+
+    @FXML
+    private RadioButton radioAiEasy;
+
+    @FXML
+    private RadioButton radioAiHard;
+
+    @FXML
+    private TextField textIp;
 
     @FXML
     private Button btnStart;
-
-    @FXML
-    private RadioButton radioInternet;
-
-    @FXML
-    private RadioButton radioLan;
-
-    @FXML
-    private TextField textUserName;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {

@@ -9,9 +9,9 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<StackPane fx:id="prepareScreenRootPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.tuantai0625.chessgame.controller.PrepareScreenController">
+<StackPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="399.0" prefWidth="634.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.tuantai0625.chessgame.controller.PrepareScreenController">
    <children>
-      <ImageView fitHeight="400.0" fitWidth="600.0" pickOnBounds="true" preserveRatio="true">
+      <ImageView fitHeight="550.0" fitWidth="750.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../assets/backgrounds/background_prepare_screen.jpg" />
          </image>
@@ -35,29 +35,54 @@
                   </TextField>
                </children>
             </HBox>
-            <HBox alignment="CENTER_LEFT" prefHeight="80.0" prefWidth="400.0">
+            <HBox alignment="CENTER_LEFT" prefHeight="80.0" prefWidth="200.0">
                <children>
-                  <Label text="Kiểu kết nối: ">
+                  <Label text="Chế độ chơi: ">
                      <font>
                         <Font size="24.0" />
                      </font>
                   </Label>
-                  <RadioButton fx:id="radioLan" mnemonicParsing="false" text="LAN">
-                     <HBox.margin>
-                        <Insets left="30.0" />
-                     </HBox.margin>
+                  <RadioButton fx:id="radioPvp" mnemonicParsing="false" text="PvP">
                      <font>
                         <Font size="18.0" />
                      </font>
-                  </RadioButton>
-                  <RadioButton fx:id="radioInternet" mnemonicParsing="false" text="Internet">
                      <HBox.margin>
-                        <Insets left="30.0" />
+                        <Insets left="20.0" />
                      </HBox.margin>
+                  </RadioButton>
+                  <RadioButton fx:id="radioAiEasy" layoutX="149.0" layoutY="47.0" mnemonicParsing="false" text="AI - Dễ">
                      <font>
                         <Font size="18.0" />
                      </font>
+                     <HBox.margin>
+                        <Insets left="30.0" />
+                     </HBox.margin>
                   </RadioButton>
+                  <RadioButton fx:id="radioAiHard" layoutX="210.0" layoutY="47.0" mnemonicParsing="false" text="AI - Khó">
+                     <font>
+                        <Font size="18.0" />
+                     </font>
+                     <HBox.margin>
+                        <Insets left="30.0" />
+                     </HBox.margin>
+                  </RadioButton>
+               </children>
+            </HBox>
+            <HBox alignment="CENTER_LEFT" prefHeight="80.0" prefWidth="400.0">
+               <children>
+                  <Label text="IP máy chủ:">
+                     <font>
+                        <Font size="24.0" />
+                     </font>
+                  </Label>
+                  <TextField fx:id="textIp" prefHeight="31.0" prefWidth="301.0">
+                     <font>
+                        <Font size="15.0" />
+                     </font>
+                     <HBox.margin>
+                        <Insets left="20.0" />
+                     </HBox.margin>
+                  </TextField>
                </children>
             </HBox>
             <Button fx:id="btnStart" mnemonicParsing="false" onAction="#onButtonStartClick" text="BẮT ĐẦU!" textFill="#0c2a94">
