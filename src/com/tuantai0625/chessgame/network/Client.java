@@ -11,12 +11,13 @@ import java.util.ArrayList;
  * Created by Lionheart on 19-Jun-17.
  */
 public class Client {
-    Socket socket;
-    BufferedReader reader;
-    PrintWriter writer;
-    String ip = "localhost";
+    private String ip;
+    private Socket socket;
+    private BufferedReader reader;
+    private PrintWriter writer;
 
-    public Client() {
+    public Client(String ip) {
+        this.ip = ip;
         try {
             socket = new Socket(ip, 5000);
             InputStreamReader isReader = new InputStreamReader(socket.getInputStream());

@@ -2,6 +2,8 @@ package com.tuantai0625.chessgame.controller;
 
 import com.tuantai0625.chessgame.Main;
 import com.tuantai0625.chessgame.network.Client;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -9,9 +11,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.RadioButton;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
 
@@ -44,13 +44,13 @@ public class PrepareScreenController implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-
+        setupRadioGroup();
     }
 
     @FXML
     void onButtonStartClick(ActionEvent event) throws IOException {
         if (isValidToStart()) {
-            Client client = new Client();
+            Client client = new Client(textIp.getText());
             client.sendMessage(textUserName.getText());
             //TODO Tạo thread mới để loại bỏ hiện tượng treo app khi chờ response từ server
             String[] info = client.receiveMessage().split("_");
@@ -58,8 +58,29 @@ public class PrepareScreenController implements Initializable {
         }
     }
 
+    private void setupRadioGroup() {
+        ToggleGroup group = new ToggleGroup();
+        radioPvp.setToggleGroup(group);
+        radioPvp.setSelected(true);
+        radioAiEasy.setToggleGroup(group);
+        radioAiHard.setToggleGroup(group);
+
+        group.selectedToggleProperty().addListener(new ChangeListener<Toggle>() {
+            @Override
+            public void changed(ObservableValue<? extends Toggle> observable, Toggle oldValue, Toggle newValue) {
+                if (group.getSelectedToggle() == radioPvp) {
+                    textIp.setDisable(false);
+                } else if (group.getSelectedToggle() == radioAiEasy) {
+                    textIp.setDisable(true);
+                } else if (group.getSelectedToggle() == radioAiHard) {
+                    textIp.setDisable(true);
+                }
+            }
+        });
+    }
+
     private boolean isValidToStart() {
-        return !textUserName.getText().equals("");
+        return (!textUserName.getText().equals("") && !textIp.getText().equals(""));
     }
 
     private void startGame(String playerId, String playerName, String rivalName) {
