@@ -14,22 +14,28 @@ import java.util.ResourceBundle;
 
 public class MainController implements Initializable{
     @FXML
+    private Label nameP2;
+
+    @FXML
+    private Label lastMoveP2;
+
+    @FXML
+    private Label nameP1;
+
+    @FXML
+    private Label lastMoveP1;
+
+    @FXML
     private GridPane chessPane;
+
+    @FXML
+    private TextArea chatBox;
 
     @FXML
     private TextField textInput;
 
     @FXML
-    private Label namePlayer2;
-
-    @FXML
-    private Label namePlayer1;
-
-    @FXML
     private Button btnSend;
-
-    @FXML
-    private TextArea chatBox;
 
     private ChessBoard chessBoard = new ChessBoard();
     private String playerId;
@@ -58,11 +64,11 @@ public class MainController implements Initializable{
 
     private void displayPlayerName() {
         if (playerId.equals("1")) {
-            namePlayer1.setText(playerName);
-            namePlayer2.setText(rivalName);
+            nameP1.setText(playerName);
+            nameP2.setText(rivalName);
         } else {
-            namePlayer1.setText(rivalName);
-            namePlayer2.setText(playerName);
+            nameP1.setText(rivalName);
+            nameP2.setText(playerName);
         }
     }
 }
