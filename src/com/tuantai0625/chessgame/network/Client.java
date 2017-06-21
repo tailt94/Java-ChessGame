@@ -1,11 +1,11 @@
 package com.tuantai0625.chessgame.network;
 
+import javafx.application.Platform;
+
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
-import java.lang.reflect.Array;
 import java.net.Socket;
-import java.util.ArrayList;
 
 /**
  * Created by Lionheart on 19-Jun-17.
@@ -15,7 +15,7 @@ public class Client {
     private Socket socket;
     private BufferedReader reader;
     private PrintWriter writer;
-    private ChatListener mListener;
+    private DataReceiveListener mListener;
 
     public Client(String ip) {
         this.ip = ip;
@@ -29,7 +29,7 @@ public class Client {
         }
     }
 
-    public void setOnChatListener(ChatListener listener) {
+    public void setOnDataReceiveListener(DataReceiveListener listener) {
         this.mListener = listener;
     }
 
@@ -48,8 +48,8 @@ public class Client {
         return result;
     }
 
-    public void startChatThread() {
-        Thread t = new Thread(new IncomingChatReader());
+    public void startDataThread() {
+        Thread t = new Thread(new IncomingDataReader());
         t.start();
     }
 
@@ -61,18 +61,34 @@ public class Client {
         }
     }
 
-    public class IncomingChatReader implements  Runnable {
+    private class IncomingDataReader implements  Runnable {
 
         @Override
         public void run() {
             String message;
             while ((message = receiveMessage()) != null) {
-                mListener.onChatReceive(message);
+                final String s = message;
+                if (message.contains("_")) {
+                    Platform.runLater(new Runnable() {
+                        @Override
+                        public void run() {
+                            mListener.onMoveReceive(s);
+                        }
+                    });
+                } else {
+                    Platform.runLater(new Runnable() {
+                        @Override
+                        public void run() {
+                            mListener.onChatReceive(s);
+                        }
+                    });
+                }
             }
         }
     }
 
-    public interface ChatListener {
+    public interface DataReceiveListener {
         void onChatReceive(String message);
+        void onMoveReceive(String move);
     }
 }

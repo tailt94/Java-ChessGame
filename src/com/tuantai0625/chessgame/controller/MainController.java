@@ -14,12 +14,11 @@ import javafx.scene.control.TextField;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.GridPane;
-import javafx.stage.Stage;
 
 import java.net.URL;
 import java.util.ResourceBundle;
 
-public class MainController implements Initializable, Client.ChatListener, ChessBoard.OnPieceMoveListener{
+public class MainController implements Initializable, Client.DataReceiveListener, ChessBoard.OnPieceMoveListener{
     @FXML
     private Label nameP2;
 
@@ -56,8 +55,8 @@ public class MainController implements Initializable, Client.ChatListener, Chess
         this.playerName = playerName;
         this.rivalName = rivalName;
 
-        client.setOnChatListener(this);
-        client.startChatThread();
+        client.setOnDataReceiveListener(this);
+        client.startDataThread();
 
         chessBoard = new ChessBoard();
         chessBoard.setOnPieceMoveListener(this);
@@ -76,8 +75,23 @@ public class MainController implements Initializable, Client.ChatListener, Chess
     }
 
     @Override
+    public void onMoveReceive(String move) {
+        Move m = new Move(move);
+        if (playerId.equals("1")) {
+            lastMoveP2.setText(m.toBoardMove());
+        } else if (playerId.equals("2")) {
+            lastMoveP1.setText(m.toBoardMove());
+        }
+    }
+
+    @Override
     public void onPieceMove(Move move) {
         client.sendMessage(playerId + "_" + move.toString());
+        if (playerId.equals("1")) {
+            lastMoveP1.setText(move.toBoardMove());
+        } else if (playerId.equals("2")) {
+            lastMoveP2.setText(move.toBoardMove());
+        }
     }
 
     @FXML
