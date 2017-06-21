@@ -9,6 +9,8 @@ import javafx.scene.layout.Pane;
  */
 public class ChessBoard {
     private Tile[][] tiles ;
+    private Move lastMove;
+    private OnPieceMoveListener mListener = null;
 
     public ChessBoard() {
         tiles = new Tile[8][8];
@@ -26,6 +28,11 @@ public class ChessBoard {
 
     public Tile getTile(int row, int col) {
         return this.tiles[row][col];
+    }
+
+    public void setLastMove(Move move) {
+        this.lastMove = move;
+        mListener.onPieceMove(move);
     }
 
     private void setInitPieces(int row, int col) {
@@ -75,5 +82,13 @@ public class ChessBoard {
 
     public Piece getPiece(int row, int col) {
         return tiles[row][col].getPiece();
+    }
+
+    public void setOnPieceMoveListener(OnPieceMoveListener listener) {
+        this.mListener = listener;
+    }
+
+    public interface OnPieceMoveListener {
+        void onPieceMove(Move move);
     }
 }

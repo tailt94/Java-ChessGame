@@ -88,7 +88,6 @@ public class Tile implements Piece.OnDragCompleteListener {
                 Dragboard db = event.getDragboard();
                 boolean success = false;
 
-                //TODO: Kiểm tra ô này có hợp lệ hay không
                 if(db.hasString()) {
                     String[] pieceInfo = db.getString().split("_");
                     int oldRow = Integer.parseInt(pieceInfo[2]);
@@ -100,6 +99,7 @@ public class Tile implements Piece.OnDragCompleteListener {
                             removePiece();
                         }
                         setPiece(newPiece);
+                        board.setLastMove(new Move(oldRow, oldCol, row, col));
                         success = true;
                     }
                 }

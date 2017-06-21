@@ -2,6 +2,7 @@ package com.tuantai0625.chessgame.controller;
 
 import com.tuantai0625.chessgame.Main;
 import com.tuantai0625.chessgame.model.ChessBoard;
+import com.tuantai0625.chessgame.model.Move;
 import com.tuantai0625.chessgame.network.Client;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -18,7 +19,7 @@ import javafx.stage.Stage;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-public class MainController implements Initializable, Client.ChatListener{
+public class MainController implements Initializable, Client.ChatListener, ChessBoard.OnPieceMoveListener{
     @FXML
     private Label nameP2;
 
@@ -44,7 +45,7 @@ public class MainController implements Initializable, Client.ChatListener{
     private Button btnSend;
 
     private Client client;
-    private ChessBoard chessBoard = new ChessBoard();
+    private ChessBoard chessBoard;
     private String playerId;
     private String playerName;
     private String rivalName;
@@ -57,6 +58,9 @@ public class MainController implements Initializable, Client.ChatListener{
 
         client.setOnChatListener(this);
         client.startChatThread();
+
+        chessBoard = new ChessBoard();
+        chessBoard.setOnPieceMoveListener(this);
     }
 
     @Override
@@ -69,6 +73,11 @@ public class MainController implements Initializable, Client.ChatListener{
     @Override
     public void onChatReceive(String message) {
         chatBox.appendText(message + "\n");
+    }
+
+    @Override
+    public void onPieceMove(Move move) {
+        client.sendMessage(playerId + "_" + move.toString());
     }
 
     @FXML
