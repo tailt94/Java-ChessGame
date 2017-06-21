@@ -82,6 +82,7 @@ public class MainController implements Initializable, Client.DataReceiveListener
         } else if (playerId.equals("2")) {
             lastMoveP1.setText(m.toBoardMove());
         }
+        chessBoard.updateBoard(m);
     }
 
     @Override

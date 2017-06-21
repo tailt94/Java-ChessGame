@@ -84,6 +84,20 @@ public class ChessBoard {
         return tiles[row][col].getPiece();
     }
 
+    public void updateBoard(Move move) {
+        int oldRow = move.getOldRow();
+        int oldCol = move.getOldCol();
+        int newRow = move.getNewRow();
+        int newCol = move.getNewCol();
+
+        Piece piece = getPiece(oldRow, oldCol);
+        getTile(oldRow, oldCol).removePiece();
+        if (hasPiece(newRow, newCol)) {
+            getTile(newRow, newCol).removePiece();
+        }
+        getTile(newRow, newCol).setPiece(piece);
+    }
+
     public void setOnPieceMoveListener(OnPieceMoveListener listener) {
         this.mListener = listener;
     }

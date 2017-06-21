@@ -26,6 +26,22 @@ public class Move {
         this.newCol = Integer.parseInt(s[3]);
     }
 
+    public int getOldRow() {
+        return oldRow;
+    }
+
+    public int getOldCol() {
+        return oldCol;
+    }
+
+    public int getNewRow() {
+        return newRow;
+    }
+
+    public int getNewCol() {
+        return newCol;
+    }
+
     @Override
     public String toString() {
         return (Integer.toString(oldRow) + "_"
