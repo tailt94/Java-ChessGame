@@ -15,6 +15,7 @@ public class Client {
     private Socket socket;
     private BufferedReader reader;
     private PrintWriter writer;
+    private ChatListener mListener;
 
     public Client(String ip) {
         this.ip = ip;
@@ -26,6 +27,10 @@ public class Client {
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+
+    public void setOnChatListener(ChatListener listener) {
+        this.mListener = listener;
     }
 
     public void sendMessage(String message) {
@@ -43,6 +48,11 @@ public class Client {
         return result;
     }
 
+    public void startChatThread() {
+        Thread t = new Thread(new IncomingChatReader());
+        t.start();
+    }
+
     public void closeConnection() {
         try {
             socket.close();
@@ -51,23 +61,18 @@ public class Client {
         }
     }
 
-    public class ConnectionHandler implements Runnable {
-        Socket socket;
-        BufferedReader reader;
-        String info;
-
-        public ConnectionHandler(Socket socket, BufferedReader reader) {
-            this.socket = socket;
-            this.reader = reader;
-        }
+    public class IncomingChatReader implements  Runnable {
 
         @Override
         public void run() {
-            try {
-                info = reader.readLine();
-            } catch (Exception e) {
-                e.printStackTrace();
+            String message;
+            while ((message = receiveMessage()) != null) {
+                mListener.onChatReceive(message);
             }
         }
+    }
+
+    public interface ChatListener {
+        void onChatReceive(String message);
     }
 }

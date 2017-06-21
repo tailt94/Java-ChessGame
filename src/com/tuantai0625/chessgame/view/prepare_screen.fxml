@@ -75,7 +75,7 @@
                         <Font size="24.0" />
                      </font>
                   </Label>
-                  <TextField fx:id="textIp" prefHeight="31.0" prefWidth="301.0">
+                  <TextField fx:id="textIp" onKeyPressed="#onTextIpPress" prefHeight="31.0" prefWidth="301.0">
                      <font>
                         <Font size="15.0" />
                      </font>

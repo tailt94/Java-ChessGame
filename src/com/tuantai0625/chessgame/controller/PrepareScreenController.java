@@ -5,6 +5,7 @@ import com.tuantai0625.chessgame.network.Client;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
+import javafx.event.EventType;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -12,8 +13,11 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
+
 
 import java.io.IOException;
 import java.net.URL;
@@ -54,7 +58,20 @@ public class PrepareScreenController implements Initializable {
             client.sendMessage(textUserName.getText());
             //TODO Tạo thread mới để loại bỏ hiện tượng treo app khi chờ response từ server
             String[] info = client.receiveMessage().split("_");
-            startGame(info[0], info[1], info[2]);
+            startGame(client, info[0], info[1], info[2]);
+        }
+    }
+
+    @FXML
+    void onTextIpPress(KeyEvent event) {
+        if (isValidToStart()) {
+            if (event.getCode() == KeyCode.ENTER) {
+                Client client = new Client(textIp.getText());
+                client.sendMessage(textUserName.getText());
+                //TODO Tạo thread mới để loại bỏ hiện tượng treo app khi chờ response từ server
+                String[] info = client.receiveMessage().split("_");
+                startGame(client, info[0], info[1], info[2]);
+            }
         }
     }
 
@@ -83,9 +100,9 @@ public class PrepareScreenController implements Initializable {
         return (!textUserName.getText().equals("") && !textIp.getText().equals(""));
     }
 
-    private void startGame(String playerId, String playerName, String rivalName) {
+    private void startGame(Client connection, String playerId, String playerName, String rivalName) {
         try {
-            MainController mainController = new MainController(playerId, playerName, rivalName);
+            MainController mainController = new MainController(connection, playerId, playerName, rivalName);
             FXMLLoader loader = new FXMLLoader(Main.class.getResource("view/main_screen.fxml"));
             Stage stage = (Stage) btnStart.getScene().getWindow();
             loader.setController(mainController);

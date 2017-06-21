@@ -17,6 +17,4 @@ public class MoveInfo {
         this.newRow = newRow;
         this.newCol = newCol;
     }
-
-
 }
