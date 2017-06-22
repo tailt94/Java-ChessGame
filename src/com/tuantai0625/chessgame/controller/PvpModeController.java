@@ -1,6 +1,7 @@
 package com.tuantai0625.chessgame.controller;
 
 import com.tuantai0625.chessgame.Main;
+import com.tuantai0625.chessgame.ai.AI;
 import com.tuantai0625.chessgame.model.ChessBoard;
 import com.tuantai0625.chessgame.model.Move;
 import com.tuantai0625.chessgame.network.Client;
@@ -18,7 +19,7 @@ import javafx.scene.layout.GridPane;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-public class MainController implements Initializable, Client.DataReceiveListener, ChessBoard.OnPieceMoveListener{
+public class PvpModeController implements Initializable, Client.DataReceiveListener, ChessBoard.OnPieceMoveListener{
     @FXML
     private Label nameP2;
 
@@ -49,7 +50,7 @@ public class MainController implements Initializable, Client.DataReceiveListener
     private String playerName;
     private String rivalName;
 
-    public MainController(Client connection, String playerId, String playerName, String rivalName) {
+    public PvpModeController(Client connection, String playerId, String playerName, String rivalName) {
         this.client = connection;
         this.playerId = playerId;
         this.playerName = playerName;
