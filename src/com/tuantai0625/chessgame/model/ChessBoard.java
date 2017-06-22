@@ -22,6 +22,19 @@ public class ChessBoard {
         }
     }
 
+    public ChessBoard(ChessBoard board) {
+        tiles = new Tile[8][8];
+        for (int row = 0; row < 8; row++) {
+            for (int col = 0; col < 8; col++) {
+                tiles[row][col] = new Tile(this, row, col);
+                if (board.hasPiece(row, col)) {
+                    Piece piece = board.getPiece(row, col);
+                    tiles[row][col].setPiece(PieceFactory.getPiece(piece.getName(), piece.getColor()));
+                }
+            }
+        }
+    }
+
     public Tile[][] getTiles() {
         return this.tiles;
     }
