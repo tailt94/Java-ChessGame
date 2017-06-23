@@ -28,6 +28,45 @@ public class Rook extends Piece {
         }
 
         /*
+         * Trường hợp nhập thành
+         */
+        if (color.equals(Piece.WHITE)) {
+            if (oldRow == 7 && oldCol == 7 && newRow == 7 && newCol == 5) {
+                if (b.hasPiece(7, 6)) {
+                    Piece piece = b.getPiece(7, 6);
+                    if (piece.getName().equals("king") && piece.getColor().equals(Piece.WHITE)) {
+                        return true;
+                    }
+                }
+            }
+            if (oldRow == 7 && oldCol == 0 && newRow == 7 && newCol == 3) {
+                if (b.hasPiece(7, 2) && !b.hasPiece(7, 1) && !b.hasPiece(7, 3)) {
+                    Piece piece = b.getPiece(7, 2);
+                    if (piece.getName().equals("king") && piece.getColor().equals(Piece.WHITE)) {
+                        return true;
+                    }
+                }
+            }
+        } else if (color.equals(Piece.BLACK)) {
+            if (oldRow == 0 && oldCol == 7 && newRow == 0 && newCol == 5) {
+                if (b.hasPiece(0, 6)) {
+                    Piece piece = b.getPiece(0, 6);
+                    if (piece.getName().equals("king") && piece.getColor().equals(Piece.BLACK)) {
+                        return true;
+                    }
+                }
+            }
+            if (oldRow == 0 && oldCol == 0 && newRow == 0 && newCol == 3) {
+                if (b.hasPiece(0, 2) && !b.hasPiece(0, 1) && !b.hasPiece(0, 3)) {
+                    Piece piece = b.getPiece(0, 2);
+                    if (piece.getName().equals("king") && piece.getColor().equals(Piece.BLACK)) {
+                        return true;
+                    }
+                }
+            }
+        }
+
+        /*
          * Kiểm tra tính hợp lệ khi ô được di chuyển tới nằm cùng hàng ngang
          */
         if (newRow == oldRow) {

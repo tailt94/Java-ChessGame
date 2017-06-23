@@ -98,6 +98,7 @@ public class Tile implements Piece.OnDragCompleteListener {
                         if (hasPiece()) {
                             removePiece();
                         }
+                        newPiece.addImageDragEvent();
                         setPiece(newPiece);
                         board.setLastMove(new Move(oldRow, oldCol, row, col));
                         success = true;
