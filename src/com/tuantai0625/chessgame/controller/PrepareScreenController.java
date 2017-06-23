@@ -58,7 +58,6 @@ public class PrepareScreenController implements Initializable {
             if (getMode() == 0) { //PvP
                 Client client = new Client(textIp.getText());
                 client.sendMessage(textUserName.getText());
-                //TODO Tạo thread mới để loại bỏ hiện tượng treo app khi chờ response từ server
                 String[] info = client.receiveMessage().split("_");
                 startPvpMode(client, info[0], info[1], info[2]);
             } else if (getMode() == 1) { //AI - Dễ
@@ -75,7 +74,6 @@ public class PrepareScreenController implements Initializable {
             if (event.getCode() == KeyCode.ENTER) {
                 Client client = new Client(textIp.getText());
                 client.sendMessage(textUserName.getText());
-                //TODO Tạo thread mới để loại bỏ hiện tượng treo app khi chờ response từ server
                 String[] info = client.receiveMessage().split("_");
                 startPvpMode(client, info[0], info[1], info[2]);
             }
