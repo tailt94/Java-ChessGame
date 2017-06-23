@@ -115,8 +115,8 @@ public class ChessBoard {
     }
 
     /**
-     * Chỉ tạo sự kiện kéo thả cho quân cờ phe mình
-     * @param playerId Id phe cờ
+     * Add drag event for pieces
+     * @param playerId Id of the side - 1 for white side and 2 for black side
      */
     public void addDragEvent(String playerId) {
         for (int row = 0; row < 8; row++) {

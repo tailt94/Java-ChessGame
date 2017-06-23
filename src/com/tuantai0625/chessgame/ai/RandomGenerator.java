@@ -16,7 +16,6 @@ public class RandomGenerator extends AI {
         ArrayList<Move> moves = getPossibleMoves(board, Piece.BLACK);
         Random random = new Random();
 
-        //Lấy số random
         int index = random.nextInt(moves.size());
         Move randomMove = moves.get(index);
         board.updateBoard(randomMove);

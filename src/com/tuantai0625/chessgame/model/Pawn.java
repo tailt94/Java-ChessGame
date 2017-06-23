@@ -19,7 +19,7 @@ public class Pawn extends Piece{
         int oldCol = this.tileOn.getCol();
 
         /*
-         * Kiểm tra ô được di chuyển tới có tồn tại quân cờ cùng phe hay không
+         * Check if new tile has the piece of same side
          */
         if (b.hasPiece(newRow, newCol)) {
             if (b.getPiece(newRow, newCol).getColor().equals(getColor())) {
@@ -28,7 +28,7 @@ public class Pawn extends Piece{
         }
 
         if (this.getColor().equals(Piece.WHITE)) {
-            if (oldRow == 6) { //Cho phép tốt di chuyển 2 ô khi quân tốt đang ở vị trí ban đầu
+            if (oldRow == 6) { //Pawn can move 2 step only if it's on original position
                 if (Math.abs(newCol - oldCol) == 1 && newRow == oldRow - 1 && b.hasPiece(newRow, newCol)) {
                     return true;
                 } else if (newCol == oldCol && newRow == oldRow - 1 && !b.hasPiece(newRow, newCol)) {
@@ -37,7 +37,7 @@ public class Pawn extends Piece{
                     return true;
                 }
                 return false;
-            } else { //Khi quân tốt không còn ở vị trí ban đầu
+            } else { //Pawn is not on original position anymore
                 if (Math.abs(newCol - oldCol) == 1 && newRow == oldRow - 1 && b.hasPiece(newRow, newCol)) {
                     return true;
                 } else if (newCol == oldCol && newRow == oldRow - 1 && !b.hasPiece(newRow, newCol)) {
@@ -46,7 +46,7 @@ public class Pawn extends Piece{
                 return false;
             }
         } else {
-            if (oldRow == 1) { //Cho phép tốt di chuyển 2 ô khi quân tốt đang ở vị trí ban đầu
+            if (oldRow == 1) { //Pawn can move 2 step only if it's on original position
                 if (Math.abs(newCol - oldCol) == 1 && newRow == oldRow + 1 && b.hasPiece(newRow, newCol)) {
                     return true;
                 } else if (newCol == oldCol && newRow == oldRow + 1 && !b.hasPiece(newRow, newCol)) {
@@ -55,7 +55,7 @@ public class Pawn extends Piece{
                     return true;
                 }
                 return false;
-            } else { //Khi quân tốt không còn ở vị trí ban đầu
+            } else { //Pawn is not on original position anymore
                 if (Math.abs(newCol - oldCol) == 1 && newRow == oldRow + 1 && b.hasPiece(newRow, newCol)) {
                     return true;
                 } else if (newCol == oldCol && newRow == oldRow + 1 && !b.hasPiece(newRow, newCol)) {

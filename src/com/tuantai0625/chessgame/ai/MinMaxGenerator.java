@@ -23,7 +23,7 @@ public class MinMaxGenerator extends AI {
         ArrayList<Move> moves = new ArrayList<>();
 
         /*
-         * Lưu lại tất cả các bước di chuyển có thể xảy ra
+         * Save all possible moves
          */
         for (int row = 0; row < 8; row++) {
             for (int col = 0; col < 8; col++) {
@@ -46,7 +46,7 @@ public class MinMaxGenerator extends AI {
             }
         }
 
-        //Khởi tạo bước di chuyển tốt nhất
+        //Initialize best move
         bestMove = moves.get(0);
         bestMoveScore = evaluatePosition(possibleBoards.get(0), Integer.MIN_VALUE, Integer.MAX_VALUE, DEPTH, Piece.WHITE);
 
@@ -119,7 +119,7 @@ public class MinMaxGenerator extends AI {
         int blackScore = 0;
 
         /*
-         * Duyệt bàn cờ
+         * Iterate all tile on the chess board
          */
         for (int row = 0; row < 8; row++) {
             for (int col = 0; col < 8; col++) {

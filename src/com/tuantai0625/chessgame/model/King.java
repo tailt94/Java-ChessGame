@@ -19,7 +19,7 @@ public class King extends Piece {
         int oldCol = this.tileOn.getCol();
 
         /*
-         * Kiểm tra ô được di chuyển tới có tồn tại quân cờ cùng phe hay không
+         * Check if new tile has the piece of same side
          */
         if (b.hasPiece(newRow, newCol)) {
             if (b.getPiece(newRow, newCol).getColor().equals(getColor())) {
@@ -28,14 +28,14 @@ public class King extends Piece {
         }
 
         /*
-         * Quân vua chỉ được di chuyển 1 ô
+         * King can move only 1 step
          */
         if (Math.abs(newRow - oldRow) < 2 && Math.abs(newCol - oldCol) < 2) {
             return true;
         }
 
         /*
-         * Nhập thành
+         * Castling
          */
         if (this.color.equals(Piece.WHITE)) {
             if (oldRow == 7 && oldCol == 4 && newRow == 7 && newCol == 6) {

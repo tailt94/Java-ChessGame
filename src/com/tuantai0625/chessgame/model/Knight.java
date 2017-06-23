@@ -19,7 +19,7 @@ public class Knight extends Piece {
         int oldCol = this.tileOn.getCol();
 
         /*
-         * Kiểm tra ô được di chuyển tới có tồn tại quân cờ cùng phe hay không
+         * Check if new tile has the piece of same side
          */
         if (b.hasPiece(newRow, newCol)) {
             if (b.getPiece(newRow, newCol).getColor().equals(getColor())) {

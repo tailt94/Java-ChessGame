@@ -19,7 +19,7 @@ public class Bishop extends Piece{
         int oldCol = this.tileOn.getCol();
 
         /*
-         * Kiểm tra ô được di chuyển tới có tồn tại quân cờ cùng phe hay không
+         * Check if new tile has the piece of same side
          */
         if (b.hasPiece(newRow, newCol)) {
             if (b.getPiece(newRow, newCol).getColor().equals(getColor())) {
@@ -28,12 +28,12 @@ public class Bishop extends Piece{
         }
 
         /*
-         * Kiểm tra trên các đường chéo xem từ vị trí cũ tới vị trí mới
-         * có bị chặn bởi quân cờ khác không, nếu có thì không hợp lệ
+         * Check if new position on diagonal line is blocked
+         * by another piece
          */
         if (Math.abs(newRow - oldRow) == Math.abs(newCol - oldCol)) {
             /*
-             * Kiểm tra đường chéo phần góc phải - dưới so với vị trí cũ
+             * Check right - bottom part
              */
             if (newRow > oldRow && newCol > oldCol) {
                 for (int i = 1; i < newRow - oldRow; i++) {
@@ -45,7 +45,7 @@ public class Bishop extends Piece{
             }
 
             /*
-             * Kiểm tra đường chéo phần góc phải - trên so với vị trí cũ
+             * Check right - top part
              */
             if (newRow < oldRow && newCol > oldCol) {
                 for (int i = 1; i < newCol - oldCol; i++) {
@@ -57,7 +57,7 @@ public class Bishop extends Piece{
             }
 
             /*
-             * Kiểm tra đường chéo phần góc trái - dưới so với vị trí cũ
+             * Check left - bottom part
              */
             if (newRow > oldRow && newCol < oldCol) {
                 for (int i = 1; i < newRow - oldRow; i++) {
@@ -69,7 +69,7 @@ public class Bishop extends Piece{
             }
 
             /*
-             * Kiểm tra đường chéo phần góc trái - trên so với vị trí cũ
+             * Check left - top part
              */
             if (newRow < oldRow && newCol < oldCol) {
                 for (int i = 1; i < oldCol - newCol; i++) {

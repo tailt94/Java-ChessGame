@@ -60,9 +60,9 @@ public class PrepareScreenController implements Initializable {
                 Client client = new Client(textIp.getText());
                 client.sendMessage(textUserName.getText());
                 establishConnection(client);
-            } else if (getMode() == 1) { //AI - Dễ
+            } else if (getMode() == 1) { //AI - Easy
                 startAiMode(new RandomGenerator(), textUserName.getText());
-            } else { //AI - Khó
+            } else { //AI - Hard
                 startAiMode(new MinMaxGenerator(), textUserName.getText());
             }
         }
@@ -112,9 +112,9 @@ public class PrepareScreenController implements Initializable {
 
     /**
      *
-     * @return 0 - Chế độ PvP;
-     * 1 - Chế độ AI Dễ;
-     * 2 - Chế độ AI Khó;
+     * @return 0 - PvP mode;
+     * 1 - AI Easy mode;
+     * 2 - AI Hard mode;
      */
     private int getMode() {
         if (gameMode.getSelectedToggle() == radioPvp) {

@@ -11,10 +11,10 @@ import java.util.ArrayList;
  */
 public abstract class AI {
     /**
-     * Lấy ra danh sách tất cả các bước di chuyển hợp lệ
-     * @param board Bàn cờ cần duyệt
-     * @param color Màu của phe cần duyệt
-     * @return Danh sách các bước di chuyển hợp lệ
+     * Get all possible moves
+     * @param board The Chess board that needs to iterate
+     * @param color The color of player's chesses
+     * @return List of possible moves
      */
     protected ArrayList<Move> getPossibleMoves(ChessBoard board, String color) {
         ArrayList<Move> moves = new ArrayList<>();
@@ -40,9 +40,9 @@ public abstract class AI {
     }
 
     /**
-     * Thực hiện di chuyển quân cờ
-     * @param board Bàn cờ
-     * @return Tên nước di chuyển
+     * Move a piece
+     * @param board Chess board
+     * @return Name of the move
      */
     public abstract String makeMove(ChessBoard board);
 }
