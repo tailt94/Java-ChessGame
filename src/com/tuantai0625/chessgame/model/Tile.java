@@ -2,8 +2,6 @@ package com.tuantai0625.chessgame.model;
 
 import com.tuantai0625.chessgame.factory.PieceFactory;
 import javafx.event.EventHandler;
-import javafx.scene.image.ImageView;
-import javafx.scene.input.DataFormat;
 import javafx.scene.input.DragEvent;
 import javafx.scene.input.Dragboard;
 import javafx.scene.input.TransferMode;

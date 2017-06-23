@@ -38,5 +38,11 @@ public abstract class AI {
 
         return moves;
     }
+
+    /**
+     * Thực hiện di chuyển quân cờ
+     * @param board Bàn cờ
+     * @return Tên nước di chuyển
+     */
     public abstract String makeMove(ChessBoard board);
 }

@@ -4,7 +4,6 @@ import com.tuantai0625.chessgame.Main;
 import com.tuantai0625.chessgame.ai.AI;
 import com.tuantai0625.chessgame.model.ChessBoard;
 import com.tuantai0625.chessgame.model.Move;
-import com.tuantai0625.chessgame.network.Client;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -12,7 +11,6 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
-import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.GridPane;
 

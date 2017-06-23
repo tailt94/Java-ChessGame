@@ -1,7 +1,6 @@
 package com.tuantai0625.chessgame.controller;
 
 import com.tuantai0625.chessgame.Main;
-import com.tuantai0625.chessgame.ai.AI;
 import com.tuantai0625.chessgame.model.ChessBoard;
 import com.tuantai0625.chessgame.model.Move;
 import com.tuantai0625.chessgame.network.Client;
@@ -68,6 +67,8 @@ public class PvpModeController implements Initializable, Client.DataReceiveListe
         setStageTitle("Chess Game - Player: " + playerName);
         drawChessPane();
         displayPlayerName();
+
+        if (playerId.equals("2"))   chessPane.setDisable(true);
     }
 
     @Override
@@ -77,6 +78,7 @@ public class PvpModeController implements Initializable, Client.DataReceiveListe
 
     @Override
     public void onMoveReceive(String move) {
+        chessPane.setDisable(false);
         Move m = new Move(move);
         if (playerId.equals("1")) {
             lastMoveP2.setText(m.toBoardMove());
@@ -88,6 +90,7 @@ public class PvpModeController implements Initializable, Client.DataReceiveListe
 
     @Override
     public void onPieceMove(Move move) {
+        chessPane.setDisable(true);
         client.sendMessage(playerId + "_" + move.toString());
         if (playerId.equals("1")) {
             lastMoveP1.setText(move.toBoardMove());
