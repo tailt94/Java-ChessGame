@@ -5,6 +5,7 @@ import com.tuantai0625.chessgame.ai.AI;
 import com.tuantai0625.chessgame.ai.MinMaxGenerator;
 import com.tuantai0625.chessgame.ai.RandomGenerator;
 import com.tuantai0625.chessgame.network.Client;
+import javafx.application.Platform;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
@@ -58,8 +59,7 @@ public class PrepareScreenController implements Initializable {
             if (getMode() == 0) { //PvP
                 Client client = new Client(textIp.getText());
                 client.sendMessage(textUserName.getText());
-                String[] info = client.receiveMessage().split("_");
-                startPvpMode(client, info[0], info[1], info[2]);
+                establishConnection(client);
             } else if (getMode() == 1) { //AI - Dễ
                 startAiMode(new RandomGenerator(), textUserName.getText());
             } else { //AI - Khó
@@ -74,8 +74,7 @@ public class PrepareScreenController implements Initializable {
             if (event.getCode() == KeyCode.ENTER) {
                 Client client = new Client(textIp.getText());
                 client.sendMessage(textUserName.getText());
-                String[] info = client.receiveMessage().split("_");
-                startPvpMode(client, info[0], info[1], info[2]);
+                establishConnection(client);
             }
         }
     }
@@ -140,6 +139,22 @@ public class PrepareScreenController implements Initializable {
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+
+    private void establishConnection(Client client) {
+        Thread t = new Thread(new Runnable() {
+            @Override
+            public void run() {
+                String[] info = client.receiveMessage().split("_");
+                Platform.runLater(new Runnable() {
+                    @Override
+                    public void run() {
+                        startPvpMode(client, info[0], info[1], info[2]);
+                    }
+                });
+            }
+        });
+        t.start();
     }
 
     private void startAiMode(AI ai, String playerName) {
