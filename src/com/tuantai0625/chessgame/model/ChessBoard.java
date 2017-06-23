@@ -10,9 +10,10 @@ import javafx.scene.layout.Pane;
 public class ChessBoard {
     private Tile[][] tiles ;
     private Move lastMove;
+    private String playerId;
     private OnPieceMoveListener mListener = null;
 
-    public ChessBoard() {
+    public ChessBoard(String playerId) {
         tiles = new Tile[8][8];
         for (int row = 0; row < 8; row++) {
             for (int col = 0; col < 8; col++) {
@@ -20,6 +21,8 @@ public class ChessBoard {
                 setInitPieces(row, col);
             }
         }
+        this.playerId = playerId;
+        addDragEvent(playerId);
     }
 
     public ChessBoard(ChessBoard board) {
@@ -109,6 +112,24 @@ public class ChessBoard {
             getTile(newRow, newCol).removePiece();
         }
         getTile(newRow, newCol).setPiece(piece);
+    }
+
+    /**
+     * Chỉ tạo sự kiện kéo thả cho quân cờ phe mình
+     * @param playerId Id phe cờ
+     */
+    public void addDragEvent(String playerId) {
+        for (int row = 0; row < 8; row++) {
+            for (int col = 0; col < 8; col++) {
+                if (hasPiece(row, col)) {
+                    Piece piece = getPiece(row, col);
+                    if ((playerId.equals("1") && piece.getColor().equals(Piece.WHITE))
+                            || (playerId.equals("2") && piece.getColor().equals(Piece.BLACK))) {
+                        piece.addImageDragEvent();
+                    }
+                }
+            }
+        }
     }
 
     public void setOnPieceMoveListener(OnPieceMoveListener listener) {

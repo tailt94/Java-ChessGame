@@ -59,7 +59,7 @@ public class PvpModeController implements Initializable, Client.DataReceiveListe
         client.setOnDataReceiveListener(this);
         client.startDataThread();
 
-        chessBoard = new ChessBoard();
+        chessBoard = new ChessBoard(playerId);
         chessBoard.setOnPieceMoveListener(this);
     }
 

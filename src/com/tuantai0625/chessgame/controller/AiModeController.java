@@ -56,7 +56,7 @@ public class AiModeController implements Initializable, ChessBoard.OnPieceMoveLi
         this.playerName = playerName;
         this.rivalName = rivalName;
         this.ai = ai;
-        chessBoard = new ChessBoard();
+        chessBoard = new ChessBoard("1");
         chessBoard.setOnPieceMoveListener(this);
     }
 

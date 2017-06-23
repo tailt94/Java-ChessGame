@@ -25,33 +25,6 @@ public abstract class Piece {
         this.image = new ImageView(filePath);
         this.image.setFitWidth(62.5);
         this.image.setFitHeight(62.5);
-
-        this.image.setOnDragDetected(new EventHandler<MouseEvent>() {
-            @Override
-            public void handle(MouseEvent event) {
-                Dragboard db = image.startDragAndDrop(TransferMode.MOVE);
-                Image dragShadow = image.getImage();
-                db.setDragView(dragShadow, dragShadow.getWidth()/2, dragShadow.getHeight()/2 );
-                ClipboardContent content = new ClipboardContent();
-                content.putString(getColor() + "_"
-                        + getName() + "_"
-                        + Integer.toString(tileOn.getRow()) + "_"
-                        + Integer.toString(tileOn.getCol()));
-                db.setContent(content);
-
-                event.consume();
-            }
-        });
-
-        this.image.setOnDragDone(new EventHandler<DragEvent>() {
-            @Override
-            public void handle(DragEvent event) {
-                if (event.getTransferMode() == TransferMode.MOVE) {
-                    mListener.onDragComplete();
-                }
-                event.consume();
-            }
-        });
     }
 
     public ImageView getImage() {
@@ -60,6 +33,11 @@ public abstract class Piece {
 
     public String getColor() {
         return this.color;
+    }
+
+    public void addImageDragEvent() {
+        this.image.setOnDragDetected(new ImageDragDetectedEvent());
+        this.image.setOnDragDone(new ImageDragDoneEvent());
     }
 
     public void setOnDragCompleteListener(OnDragCompleteListener listener) {
@@ -79,5 +57,32 @@ public abstract class Piece {
 
     public interface OnDragCompleteListener {
         void onDragComplete();
+    }
+
+    private class ImageDragDetectedEvent implements EventHandler<MouseEvent> {
+        @Override
+        public void handle(MouseEvent event) {
+            Dragboard db = image.startDragAndDrop(TransferMode.MOVE);
+            Image dragShadow = image.getImage();
+            db.setDragView(dragShadow, dragShadow.getWidth()/2, dragShadow.getHeight()/2 );
+            ClipboardContent content = new ClipboardContent();
+            content.putString(getColor() + "_"
+                    + getName() + "_"
+                    + Integer.toString(tileOn.getRow()) + "_"
+                    + Integer.toString(tileOn.getCol()));
+            db.setContent(content);
+
+            event.consume();
+        }
+    }
+
+    private class ImageDragDoneEvent implements EventHandler<DragEvent> {
+        @Override
+        public void handle(DragEvent event) {
+            if (event.getTransferMode() == TransferMode.MOVE) {
+                mListener.onDragComplete();
+            }
+            event.consume();
+        }
     }
 }
